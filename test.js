@@ -1,5 +1,5 @@
 /*
- *
+ * Tests for API endpoints
  */
 
 var mocha = require('mocha');
