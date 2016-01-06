@@ -3,17 +3,14 @@
  *
  */
 
-//TODO: implement API endpoint for random cards
-
 var _ = require('underscore');
-
 var express = require('express');
 var card = require('./models')()
 
 module.exports = function() {
   var api = express.Router();
 
-  // --------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   // API: return a card by their id
   api.get('/card/id/:id', function(req, res) {
     card.findOne({ _id: req.params.id }, function(error, doc) {
@@ -31,7 +28,7 @@ module.exports = function() {
     });
   });  
 
-  // ----------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   // API: returns all available card-(ids)   
   api.get('/cards/ids', function(req, res) {
     card.find({}).select('_id').exec(function(err, l) {
@@ -46,11 +43,10 @@ module.exports = function() {
       });
 
       console.log(l);
-  //    res.json({ ids: l });
     });
   });
 
-  // --------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   // API: returns a random picked card
   api.get('/card/rand', function(req, res) {
     // XXX: How to find out how many cards are there to set a boundary
@@ -62,8 +58,6 @@ module.exports = function() {
     //console.log({ count: card.where({ _id: "001" }).count()} );
     //res.json({ count: card.where({}).count()} );
   });
-
-  //api.put();
 
   return api;  
 }
