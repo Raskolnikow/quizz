@@ -30,7 +30,7 @@ module.exports = function() {
 
   // ---------------------------------------------------------------------------
   // API: returns all available card-(ids)   
-  api.get('/cards/ids', function(req, res) {
+  api.get('/card/rand', function(req, res) {
     card.find({}).select('_id').exec(function(err, l) {
       var s = _.size(l);
       var r = Math.floor(Math.random() * s);
@@ -48,7 +48,7 @@ module.exports = function() {
 
   // ---------------------------------------------------------------------------
   // API: returns a random picked card
-  api.get('/card/rand', function(req, res) {
+  api.get('/cards/ids', function(req, res) {
     // XXX: How to find out how many cards are there to set a boundary
     //      for the random number generator?
     //      Is there a way to do it the functional way?
