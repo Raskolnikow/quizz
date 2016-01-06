@@ -54,4 +54,28 @@ describe('Card API test', function() {
       });
     });
   });
+
+  it('Should return a "Not found" message by calling false id', function(done) {
+    var url = URL_ROOT + '/card/id/123';
+    superagent.get(url, function(error, res) {
+      
+      var result;
+      assert.doesNotThrow(function() {
+        result = JSON.parse(res.text);
+      });
+      assert.ok(result.error);
+      assert.equal(result.error, 'Not found');
+      done();
+    });
+  });
+
+  it('Should return a server error', function(done) {
+    server.close();
+    var url = URL_ROOT + '/card/id/001';
+    superagent.get(url, function(error, res) {
+
+      assert.ok(error);
+      done();
+    });
+  });
 });
