@@ -5,13 +5,17 @@
 
 //TODO: implement API endpoint for random cards
 
+var _ = require('underscore');
+
 var express = require('express');
 var card = require('./models')()
 
 module.exports = function() {
   var api = express.Router();
 
-  api.get('/card/:id', function(req, res) {
+  // --------------------------------------------------------------------
+  // API: return a card by their id
+  api.get('/card/id/:id', function(req, res) {
     card.findOne({ _id: req.params.id }, function(error, doc) {
       if(error) {
         return res.
@@ -27,11 +31,36 @@ module.exports = function() {
     });
   });  
 
+  // ----------------------------------------------------------------
+  // API: returns all available card-(ids)   
+  api.get('/cards/ids', function(req, res) {
+    card.find({}).select('_id').exec(function(err, l) {
+      var s = _.size(l);
+      var r = Math.floor(Math.random() * s);
+      console.log('rand: ' + r);
+      console.log('size: ' + s);
+      var tmp = l[r];
+      console.log('obj: ' + tmp);
+      card.findOne(tmp, function(err, doc) {
+        res.json(doc);
+      });
+
+      console.log(l);
+  //    res.json({ ids: l });
+    });
+  });
+
+  // --------------------------------------------------------------------
+  // API: returns a random picked card
   api.get('/card/rand', function(req, res) {
     // XXX: How to find out how many cards are there to set a boundary
     //      for the random number generator?
     //      Is there a way to do it the functional way?
-
+    card.count({ _id: "001" }, function(err, c) {
+      res.json({ count: c} );
+    });
+    //console.log({ count: card.where({ _id: "001" }).count()} );
+    //res.json({ count: card.where({}).count()} );
   });
 
   //api.put();
