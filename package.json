@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "dependencies": {
     "express": "^4.13.3",
+    "mocha": "^2.3.4",
     "mongoose": "^4.3.4",
+    "superagent": "^1.6.1",
     "underscore": "^1.8.3"
   }
 }
