@@ -59,5 +59,8 @@ module.exports = function() {
     //res.json({ count: card.where({}).count()} );
   });
 
-  return api;  
+  return {
+    api: api,
+    card: card
+  }  
 }
